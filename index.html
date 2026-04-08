@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RG Logistics & More | Imbiancature • Riparazioni • Traslochi Milano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --midnight: #0a1628;
+            --navy: #1e3a5f;
+            --azure: #3b82f6;
+            --gold: #f59e0b;
+            --coral: #ef4444;
+            --green: #10b981;
+            --cream: #fef7ed;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+        
+        /* INTRO 3D CINEMATIC */
+        .intro-cinematic {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 9999;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        
+        .intro-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+        
+        /* Layer 1: Video Background Simulation */
+        .intro-video-bg {
+            background: linear-gradient(135deg, #000428 0%, #004e92 50%, #000428 100%);
+            animation: videoPan 20s ease-in-out infinite;
+        }
+        
+        @keyframes videoPan {
+            0%, 100% { transform: scale(1.1) translateZ(-100px); }
+            50% { transform: scale(1.2) translateZ(-50px); }
+        }
+        
+        /* Animated Grid Floor */
+        .grid-floor {
+            position: absolute;
+            bottom: -50%;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.3) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotateX(60deg);
+            animation: gridMove 3s linear infinite;
+            opacity: 0.6;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: rotateX(60deg) translateY(0); }
+            100% { transform: rotateX(60deg) translateY(50px); }
+        }
+        
+        /* Floating 3D Elements */
+        .floating-cube {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.8), rgba(59, 130, 246, 0.8));
+            border: 2px solid rgba(255,255,255,0.3);
+            transform-style: preserve-3d;
+            animation: cubeFloat 8s ease-in-out infinite, cubeRotate 10s linear infinite;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+        }
+        
+        .floating-cube::before,
+        .floating-cube::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border: inherit;
+        }
+        
+        .floating-cube::before {
+            transform: translateZ(-30px);
+        }
+        
+        .floating-cube::after {
+            transform: rotateY(90deg) translateZ(30px);
+            width: 60px;
+            height: 60px;
+        }
+        
+        @keyframes cubeFloat {
+            0%, 100% { transform: translateY(0) translateZ(0); }
+            50% { transform: translateY(-30px) translateZ(20px); }
+        }
+        
+        @keyframes cubeRotate {
+            0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        
+        .cube-1 { top: 20%; left: 10%; animation-delay: 0s; }
+        .cube-2 { top: 60%; right: 15%; animation-delay: -2s; width: 40px; height: 40px; }
+        .cube-3 { bottom: 30%; left: 20%; animation-delay: -4s; width: 80px; height: 80px; }
+        .cube-4 { top: 40%; right: 30%; animation-delay: -6s; width: 50px; height: 50px; }
+        
+        /* Paint Drops Animation */
+        .paint-drop {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, var(--green), transparent);
+            border-radius: 50%;
+            animation: dropFall 4s ease-in infinite, dropSpread 4s ease-out infinite;
+            opacity: 0;
+        }
+        
+        @keyframes dropFall {
+            0% { transform: translateY(-100px) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translateY(50vh) scale(1); opacity: 1; }
+            100% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+        }
+        
+        @keyframes dropSpread {
+            0%, 50% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+            60% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0.3); }
+            100% { box-shadow: 0 0 0 60px rgba(16, 185, 129, 0); }
+        }
+        
+        /* Light Rays */
+        .light-ray {
+            position: absolute;
+            top: -20%;
+            width: 2px;
+            height: 150%;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent);
+            transform: rotate(25deg);
+            animation: raySweep 6s ease-in-out infinite;
+        }
+        
+        @keyframes raySweep {
+            0%, 100% { opacity: 0; transform: rotate(25deg) translateX(-100px); }
+            50% { opacity: 1; transform: rotate(25deg) translateX(100px); }
+        }
+        
+        /* Vignette Effect */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
+        }
+        
+        /* Logo 3D Reveal */
+        .logo-container-3d {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(0);
+            transform-style: preserve-3d;
+            animation: logoReveal 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+        }
+        
+        @keyframes logoReveal {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) translateZ(-500px) rotateX(-90deg) scale(0.5);
+                filter: blur(20px);
+            }
+            50% {
+                opacity: 1;
+                filter: blur(0);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) translateZ(0) rotateX(0) scale(1);
+            }
+        }
+        
+        .logo-3d {
+            height: 150px;
+            filter: brightness(0) invert(1) drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Text Reveal */
+        .intro-text {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            opacity: 0;
+            animation: textReveal 1.5s ease-out 1.5s forwards;
+        }
+        
+        @keyframes textReveal {
+            0% { opacity: 0; transform: translateX(-50%) translateY(30px); filter: blur(10px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); filter: blur(0); }
+        }
+        
+        .intro-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+        
+        .intro-text p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* Loading Bar */
+        .loading-bar-container {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 3px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--green), var(--azure));
+            width: 0%;
+            animation: loadProgress 3s ease-out forwards;
+            box-shadow: 0 0 10px var(--green);
+        }
+        
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        /* Skip Button */
+        .skip-intro {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        
+        .skip-intro:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        
+        /* Exit Animation */
+        .intro-cinematic.exit {
+            animation: introExit 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+        }
+        
+        @keyframes introExit {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1) translateY(-50px); }
+            100% { opacity: 0; transform: scale(1.2) translateY(-100vh); visibility: hidden; }
+        }
+        
+        /* MAIN SITE CONTENT (Initially Hidden) */
+        .main-site {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+        
+        .main-site.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Animated Background */
+        .hero-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--midnight) 0%, var(--navy) 50%, #1e40af 100%);
+            z-index: -2;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            height: 50px;
+            filter: brightness(0) invert(1);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            animation: heroEntrance 1.5s ease-out;
+        }
+        
+        @keyframes heroEntrance {
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .logo-hero {
+            height: 120px;
+            margin-bottom: 30px;
+            filter: brightness(0) invert(1) drop-shadow(0 10px 30px rgba(0,0,0,0.3));
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--green);
+            color: var(--green);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+        }
+        
+        h1 { 
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem); 
+            color: white;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+        
+        .hero-location {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--green), #059669);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--navy);
+            border-color: white;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            stroke: rgba(255,255,255,0.6);
+        }
+        
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: -60px auto 0;
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        
+        .stat-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--navy);
+            margin-bottom: 5px;
+        }
+        
+        .stat-item p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, #f8fafc, white);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+        
+        .section-header p {
+            color: #6b7280;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--azure), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--azure), #60a5fa);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .service-card:nth-child(2) .service-icon {
+            background: linear-gradient(135deg, var(--gold), #fbbf24);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+        
+        .service-card:nth-child(3) .service-icon {
+            background: linear-gradient(135deg, var(--green), #34d399);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .service-card p {
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .service-features {
+            list-style: none;
+        }
+        
+        .service-features li {
+            padding: 8px 0;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        /* Real Estate Section */
+        .realestate-section {
+            padding: 100px 20px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .realestate-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .realestate-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--navy);
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        
+        .realestate-content h2 span {
+            color: var(--green);
+        }
+        
+        .realestate-content > p {
+            font-size: 1.3rem;
+            color: #4b5563;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .commission-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--green), #059669);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+        
+        .realestate-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .realestate-features li {
+            padding: 10px 0;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+        
+        .realestate-features li::before {
+            content: '•';
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .realestate-image {
+            position: relative;
+        }
+        
+        .realestate-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+        
+        .qr-badge {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            text-align: center;
+            border: 3px solid var(--green);
+        }
+        
+        .qr-badge img {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            box-shadow: none;
+            display: block;
+        }
+        
+        .qr-badge p {
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+        
+        /* Process Section */
+        .process-section {
+            padding: 100px 20px;
+            background: var(--midnight);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .process-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .process-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--green), #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 auto 25px;
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .process-step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .process-step p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 20px;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2310b981' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+        
+        .cta-section > div > p {
+            font-size: 1.3rem;
+            color: #4b5563;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(37, 211, 102, 0.5);
+        }
+        
+        .phone-btn {
+            background: white;
+            color: var(--navy);
+            padding: 20px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .phone-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            padding: 20px 35px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        .guarantee-badge svg {
+            width: 40px;
+            height: 40px;
+            color: var(--green);
+        }
+        
+        .guarantee-badge div {
+            text-align: left;
+        }
+        
+        .guarantee-badge strong {
+            display: block;
+            color: var(--navy);
+            font-size: 1.1rem;
+        }
+        
+        .guarantee-badge span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 20px;
+            background: white;
+        }
+        
+        .testimonials h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            text-align: center;
+            color: var(--navy);
+            margin-bottom: 60px;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background: #f8fafc;
+            padding: 35px;
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: var(--green);
+            opacity: 0.2;
+            line-height: 1;
+        }
+        
+        .stars {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-card p {
+            color: #4b5563;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--green), var(--navy));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .author-info strong {
+            display: block;
+            color: var(--navy);
+        }
+        
+        .author-info span {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--midnight);
+            color: white;
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-tagline {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .footer-contact a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-contact a:hover {
+            color: var(--green);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .realestate-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .realestate-image {
+                order: -1;
+            }
+            .qr-badge {
+                right: 10px;
+                bottom: -10px;
+                transform: scale(0.8);
+            }
+            .intro-text h2 { font-size: 1.8rem; }
+            .logo-3d { height: 100px; }
+        }
+        
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .services-grid { grid-template-columns: 1fr; }
+            .stats-bar { margin-top: -30px; padding: 30px 20px; }
+            .process-grid { gap: 30px; }
+            .logo-hero { height: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CINEMATIC INTRO -->
+    <div class="intro-cinematic" id="intro">
+        <div class="intro-layer intro-video-bg">
+            <div class="grid-floor"></div>
+            
+            <!-- Floating 3D Cubes -->
+            <div class="floating-cube cube-1"></div>
+            <div class="floating-cube cube-2"></div>
+            <div class="floating-cube cube-3"></div>
+            <div class="floating-cube cube-4"></div>
+            
+            <!-- Paint Drops -->
+            <div class="paint-drop" style="left: 20%; animation-delay: 0s;"></div>
+            <div class="paint-drop" style="left: 40%; animation-delay: 1s;"></div>
+            <div class="paint-drop" style="left: 60%; animation-delay: 2s;"></div>
+            <div class="paint-drop" style="left: 80%; animation-delay: 0.5s;"></div>
+            <div class="paint-drop" style="left: 30%; animation-delay: 1.5s;"></div>
+            <div class="paint-drop" style="left: 70%; animation-delay: 2.5s;"></div>
+            
+            <!-- Light Rays -->
+            <div class="light-ray" style="left: 20%; animation-delay: 0s;"></div>
+            <div class="light-ray" style="left: 50%; animation-delay: 2s;"></div>
+            <div class="light-ray" style="left: 80%; animation-delay: 4s;"></div>
+            
+            <!-- Particles -->
+            <div id="intro-particles"></div>
+            
+            <div class="vignette"></div>
+        </div>
+        
+        <div class="logo-container-3d">
+            <img src="/mnt/kimi/upload/RG.png" alt="RG Logo" class="logo-3d">
+        </div>
+        
+        <div class="intro-text">
+            <h2>Logistics & More</h2>
+            <p>Imbiancature • Riparazioni • Traslochi</p>
+        </div>
+        
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        
+        <button class="skip-intro" onclick="skipIntro()">Salta Intro ↷</button>
+    </div>
+
+    <!-- MAIN SITE CONTENT -->
+    <div class="main-site" id="mainSite">
+        <div class="hero-bg"></div>
+        
+        <div class="particles" id="particles"></div>
+
+        <nav id="navbar">
+            <img src="/mnt/kimi/upload/RG.png" alt="RG Logo" class="logo">
+            <div class="nav-links">
+                <a href="#servizi">Servizi</a>
+                <a href="#agenzie">Per Agenzie</a>
+                <a href="#processo">Processo</a>
+                <a href="#contatti">Contatti</a>
+            </div>
+        </nav>
+
+        <header>
+            <div class="hero-content">
+                <img src="/mnt/kimi/upload/RG.png" alt="RG Logistics & More" class="logo-hero">
+                <div class="hero-badge">✨ Professionalità Garantita</div>
+                <h1>Imbiancature, Riparazioni & Traslochi</h1>
+                <p class="hero-subtitle">Servizi completi per la casa e l'ufficio</p>
+                <p class="hero-location">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Milano e Hinterland • Preventivo Gratuito in 24h
+                </p>
+                <div class="hero-cta">
+                    <a href="https://wa.me/39INSERISCITUO_NUMERO" class="btn-primary" target="_blank">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        Scrivi su WhatsApp
+                    </a>
+                    <a href="#servizi" class="btn-secondary">Scopri i Servizi</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <h3>10+</h3>
+                <p>Anni di Esperienza</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Progetti Completati</p>
+            </div>
+            <div class="stat-item">
+                <h3>24h</h3>
+                <p>Preventivo Rapido</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Soddisfazione Clienti</p>
+            </div>
+        </div>
+
+        <section class="services-section" id="servizi">
+            <div class="section-header">
+                <h2>I Nostri Servizi</h2>
+                <p>Offriamo soluzioni complete per la cura e il restyling dei tuoi spazi, con attenzione ai dettagli e massima professionalità.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🖌️</div>
+                    <h3>Imbiancature Professionali</h3>
+                    <p>Trasformiamo i tuoi ambienti con finiture di alta qualità, utilizzando prodotti premium e tecniche moderne.</p>
+                    <ul class="service-features">
+                        <li>Tinteggiature interne ed esterne</li>
+                        <li>Effetti decorativi e velature</li>
+                        <li>Preparazione e stuccatura pareti</li>
+                        <li>Imbiancatura appartamenti completi</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🔨</div>
+                    <h3>Riparazioni Murarie</h3>
+                    <p>Interventi edili precisi e duraturi per ripristinare l'integrità e l'estetica dei tuoi muri.</p>
+                    <ul class="service-features">
+                        <li>Stuccature e rattoppi professionali</li>
+                        <li>Rifacimento intonaci</li>
+                        <li>Riparazione crepe e umidità</li>
+                        <li>Piccoli interventi edili</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3>Traslochi Leggeri</h3>
+                    <p>Servizi di trasporto e facchinaggio affidabili per i tuoi traslochi e sgomberi.</p>
+                    <ul class="service-features">
+                        <li>Trasporto mobili e oggetti</li>
+                        <li>Facchinaggio professionale</li>
+                        <li>Sgomberi appartamenti</li>
+                        <li>Supporto logistico completo</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="realestate-section" id="agenzie">
+            <div class="realestate-container">
+                <div class="realestate-content">
+                    <h2>Collaboriamo con <span>agenzie immobiliari</span> a Milano</h2>
+                    <div class="commission-badge">Commissione del 12%</div>
+                    <p>Su ogni lavoro confermato. Preventivo gratuito entro 24 ore per preparazione appartamenti per affitto o vendita.</p>
+                    
+                    <ul class="realestate-features">
+                        <li>Imbiancature interne ed esterne</li>
+                        <li>Tinteggiature professionali</li>
+                        <li>Riparazioni murarie e stuccature</li>
+                        <li>Manutenzione edile leggera</li>
+                        <li>Traslochi e facchinaggio</li>
+                        <li>Preparazione appartamenti per affitto o vendita</li>
+                    </ul>
+                    
+                    <a href="https://wa.me/39INSERISCITUO_NUMERO" class="btn-primary" target="_blank" style="display: inline-flex;">
+                        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        Richiedi Preventivo
+                    </a>
+                </div>
+                
+                <div class="realestate-image">
+                    <img src="/mnt/kimi/upload/painting%20e%20logistic.png" alt="RG Services - Team di professionisti al lavoro">
+                    <div class="qr-badge">
+                        <img src="/mnt/kimi/upload/frame.png" alt="QR Code RG">
+                        <p>Scansiona per contattarci</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process-section" id="processo">
+            <h2>Come Lavoriamo</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Contatto</h3>
+                    <p>Scrivici su WhatsApp o chiamaci. Rispondiamo sempre entro poche ore.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Sopralluogo</h3>
+                    <p>Visita gratuita per valutare il lavoro e comprendere le tue esigenze.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Preventivo</h3>
+                    <p>Proposta dettagliata trasparente, senza costi nascosti, entro 24 ore.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Esecuzione</h3>
+                    <p>Lavoro svolto con precisione, pulizia finale e tua soddisfazione garantita.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>Cosa Dicono i Clienti</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"RG ha imbiancato il mio appartamento in tempi record. Lavoro impeccabile, pulizia perfetta e prezzi onesti. Consigliatissimo!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MC</div>
+                        <div class="author-info">
+                            <strong>Marco C.</strong>
+                            <span>Milano, Navigli</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Professionalità e puntualità. Hanno risolto un problema di umidità che altri non erano riusciti a sistemare. Grazie RG!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SB</div>
+                        <div class="author-info">
+                            <strong>Sara B.</strong>
+                            <span>Sesto San Giovanni</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p>"Ho contattato RG per un trasloco leggero. Servizio eccellente, cura nei dettagli e disponibilità. Tornerò sicuramente da loro."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LR</div>
+                        <div class="author-info">
+                            <strong>Luca R.</strong>
+                            <span>Corsico</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" id="contatti">
+            <div class="cta-container">
+                <h2>Pronto a Trasformare i Tuoi Spazi?</h2>
+                <p>Hai un appartamento da imbiancare, riparazioni da fare o un trasloco leggero?<br>Contattaci ora per un preventivo gratuito e senza impegno.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://wa.me/39INSERISCITUO_NUMERO" class="whatsapp-btn" target="_blank">
+                        <svg width="28" height="28" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        Scrivi su WhatsApp
+                    </a>
+                    <a href="tel:39INSERISCITUO_NUMERO" class="phone-btn">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        Chiama Ora
+                    </a>
+                </div>
+                
+                <div class="guarantee-badge">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <div>
+                        <strong>Soddisfazione Garantita</strong>
+                        <span>Non soddisfatti? Rifacciamo il lavoro gratis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <img src="/mnt/kimi/upload/RG.png" alt="RG Logistics & More" class="footer-logo">
+                <p class="footer-tagline">Imbiancature • Riparazioni • Traslochi • Milano</p>
+                
+                <div class="footer-contact">
+                    <a href="https://wa.me/39INSERISCITUO_NUMERO" target="_blank">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        WhatsApp
+                    </a>
+                    <a href="tel:39INSERISCITUO_NUMERO">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        39INSERISCITUO_NUMERO
+                    </a>
+                    <a href="mailto:info@rglogistics.it">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        Email
+                    </a>
+                </div>
+                
+                <div class="footer-bottom">
+                    <p><strong>RG Logistics & More</strong> - Servizi di Imbiancatura, Manutenzione e Traslochi • Milano e Provincia</p>
+                    <p style="margin-top: 10px;">Partita IVA in corso di attribuzione</p>
+                    <p style="margin-top: 15px; font-size: 0.8rem;">© 2024 Tutti i diritti riservati</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Intro Animation Control
+        let introSkipped = false;
+        
+        function skipIntro() {
+            if (introSkipped) return;
+            introSkipped = true;
+            endIntro();
+        }
+        
+        function endIntro() {
+            const intro = document.getElementById('intro');
+            const mainSite = document.getElementById('mainSite');
+            
+            intro.classList.add('exit');
+            
+            setTimeout(() => {
+                intro.style.display = 'none';
+                mainSite.classList.add('visible');
+                document.body.style.overflow = 'auto';
+            }, 1000);
+        }
+        
+        // Auto-end intro after animation
+        setTimeout(() => {
+            if (!introSkipped) endIntro();
+        }, 4000);
+        
+        // Generate particles for intro
+        const introParticles = document.getElementById('intro-particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle-3d';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+            particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+            particle.style.setProperty('--tz', (Math.random() - 0.5) * 200 + 'px');
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            introParticles.appendChild(particle);
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Generate floating particles for main site
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all cards
+        document.querySelectorAll('.service-card, .testimonial-card, .process-step').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
